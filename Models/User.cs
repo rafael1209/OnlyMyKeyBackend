@@ -15,7 +15,7 @@ namespace OnlyMyKeyBackend.Models
         public required string Email { get; set; }
 
         [BsonElement("avatarUrl")]
-        public string? AvatarUrl { get; set; }
+        public required string AvatarUrl { get; set; }
 
         [BsonElement("accessToken")]
         public required string AuthToken { get; set; }
