@@ -5,12 +5,7 @@ namespace OnlyMyKeyBackend.Models
 {
     public class PasswordEntry
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
-
         public string? Login { get; set; }
-
-        public string? Service { get; set; }
 
         public string? EncryptedPassword { get; set; }
 

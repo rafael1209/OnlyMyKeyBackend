@@ -53,6 +53,9 @@ namespace OnlyMyKeyBackend
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<UserService>();
 
+            services.AddScoped<IPasswordRepository, PasswordRepository>();
+            services.AddScoped<PasswordService>();
+
             services.AddScoped<IGoogleAuthService, GoogleAuthService>();
 
             services.AddScoped<ITokenService, AuthTokenProvider>();

@@ -17,7 +17,7 @@ namespace OnlyMyKeyBackend.Controllers
             if (string.IsNullOrEmpty(token.ToString()))
                 return BadRequest();
 
-            var userDto = await userService.GetDtoByAuthTokenAsync(token.ToString());
+            var userDto = await _userService.GetDtoByAuthTokenAsync(token.ToString());
 
             if (userDto == null)
                 return Unauthorized(new { message = "Invalid or missing auth token" });

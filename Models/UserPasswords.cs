@@ -7,10 +7,9 @@ namespace OnlyMyKeyBackend.Models
     {
         [BsonId]
         public ObjectId Id { get; set; }
-
-        [BsonId]
+        [BsonElement("userId")]
         public ObjectId UserId { get; set; }
-
+        [BsonElement("passwords")]
         public List<PasswordEntry>? Passwords { get; set; }
     }
 }
