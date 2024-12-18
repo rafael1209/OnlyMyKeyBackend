@@ -20,9 +20,9 @@ namespace OnlyMyKeyBackend.Services
             await _passwordRepository.UpdateAsync(id, password);
         }
 
-        public async Task DeleteAsync(ObjectId id)
+        public async Task DeleteByIndexAsync(ObjectId userId, int index)
         {
-            await _passwordRepository.DeleteAsync(id);
+            await _passwordRepository.DeleteByIndexAsync(userId, index);
         }
 
         public async Task AddNewPasswordToList(ObjectId userId, CreatePassword request)

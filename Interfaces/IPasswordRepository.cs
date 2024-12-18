@@ -8,7 +8,7 @@ namespace OnlyMyKeyBackend.Interfaces
     {
         Task<List<PasswordEntry>> GetByUserIdAsync(ObjectId userId);
         Task UpdateAsync(ObjectId id, PasswordEntry password);
-        Task DeleteAsync(ObjectId id);
+        Task DeleteByIndexAsync(ObjectId userId, int id);
         Task CreateAsync();
         Task AddNewPasswordToList(ObjectId userId, CreatePassword request);
     }

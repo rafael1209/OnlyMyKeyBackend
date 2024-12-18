@@ -24,15 +24,23 @@ namespace OnlyMyKeyBackend.Repositories
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(ObjectId id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task CreateAsync()
         {
             throw new NotImplementedException();
         }
+
+        public async Task DeleteByIndexAsync(ObjectId userId, int index)
+        {
+            var passwords = await GetByUserIdAsync(userId);
+
+            passwords.RemoveAt(index);
+
+            var filter = Builders<UserPasswords>.Filter.Eq(u => u.UserId, userId);
+            var update = Builders<UserPasswords>.Update.Set(u => u.Passwords, passwords);
+
+            await _passwords.UpdateOneAsync(filter, update);
+        }
+
 
         public async Task AddNewPasswordToList(ObjectId userId, CreatePassword request)
         {

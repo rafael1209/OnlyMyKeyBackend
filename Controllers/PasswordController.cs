@@ -43,5 +43,23 @@ namespace OnlyMyKeyBackend.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{num}")]
+        public async Task<IActionResult> DeletePassword([FromRoute] int num)
+        {
+            Request.Headers.TryGetValue("Authorization", out var token);
+
+            if (string.IsNullOrEmpty(token.ToString()))
+                return Unauthorized();
+
+            var user = await _userService.GetByAuthTokenAsync(token.ToString());
+
+            if (user == null)
+                return Unauthorized();
+
+            await _passwordService.DeleteByIndexAsync(user.Id, num);
+
+            return Ok();
+        }
     }
 }
