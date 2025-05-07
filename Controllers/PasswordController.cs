@@ -16,7 +16,8 @@ namespace OnlyMyKeyBackend.Controllers
             if (string.IsNullOrEmpty(token.ToString()))
                 return Unauthorized();
 
-            var user = await userService.GetByAuthTokenAsync(token.ToString());
+            var user = await userService.GetByAuthTokenAsync(token.ToString()) 
+                       ?? throw new Exception("Error");
 
             var passwords = await passwordService.GetByUserIdAsync(user.Id);
 
