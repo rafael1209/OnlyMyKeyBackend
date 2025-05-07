@@ -8,9 +8,6 @@ namespace OnlyMyKeyBackend.Controllers
     [Route("api/password")]
     public class PasswordController(PasswordService passwordService, UserService userService) : Controller
     {
-        private readonly PasswordService _passwordService = passwordService;
-        private readonly UserService _userService = userService;
-
         [HttpGet]
         public async Task<IActionResult> GetAllPasswords()
         {
@@ -19,9 +16,9 @@ namespace OnlyMyKeyBackend.Controllers
             if (string.IsNullOrEmpty(token.ToString()))
                 return Unauthorized();
 
-            var user = await _userService.GetByAuthTokenAsync(token.ToString());
+            var user = await userService.GetByAuthTokenAsync(token.ToString());
 
-            var passwords = await _passwordService.GetByUserIdAsync(user.Id);
+            var passwords = await passwordService.GetByUserIdAsync(user.Id);
 
             return Ok(passwords);
         }
@@ -34,17 +31,17 @@ namespace OnlyMyKeyBackend.Controllers
             if (string.IsNullOrEmpty(token.ToString()))
                 return Unauthorized();
 
-            var user = await _userService.GetByAuthTokenAsync(token.ToString());
+            var user = await userService.GetByAuthTokenAsync(token.ToString());
 
             if (user == null)
                 return Unauthorized();
 
-            await _passwordService.AddNewPasswordToList(user.Id, request);
+            await passwordService.AddNewPasswordToList(user.Id, request);
 
             return Ok();
         }
 
-        [HttpDelete("{num}")]
+        [HttpDelete("{num:int}")]
         public async Task<IActionResult> DeletePassword([FromRoute] int num)
         {
             Request.Headers.TryGetValue("Authorization", out var token);
@@ -52,12 +49,12 @@ namespace OnlyMyKeyBackend.Controllers
             if (string.IsNullOrEmpty(token.ToString()))
                 return Unauthorized();
 
-            var user = await _userService.GetByAuthTokenAsync(token.ToString());
+            var user = await userService.GetByAuthTokenAsync(token.ToString());
 
             if (user == null)
                 return Unauthorized();
 
-            await _passwordService.DeleteByIndexAsync(user.Id, num);
+            await passwordService.DeleteByIndexAsync(user.Id, num);
 
             return Ok();
         }
